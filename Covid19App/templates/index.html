@@ -1,0 +1,176 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Covid-19 Tracker</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+
+    <style>
+        .color1{
+        background-color:#6b5b95;
+        color:white;
+        }
+        .color2{
+        background-color:#feb236;
+        color:white;
+        }
+        .color3{
+        background-color:#d64161;
+        color:white;
+        }
+        .color4{
+        background-color:#ff7b25;
+        color:white;
+        }
+        .color5{
+        background-color:#405d27;
+        color:white;
+        }
+        .color6{
+        background-color:#50394c;
+        color:white;
+        }
+        .number{
+        font-weight:300;
+        font-size:30px;
+        float:right;
+        }
+        .text{
+        font-weight:200;
+        font-size:20px;
+        float:left;
+        }
+        .colorset{
+        background-color:#27272e;
+        color:white;
+        }
+        .tableDesign{
+        background-color:#27272e;
+        color:black;
+        }
+        .design{
+        padding-top: 0px;
+        padding-right: 80px;
+        padding-bottom: 50px;
+        padding-left: 80px;
+        }
+    </style>
+</head>
+<body class="p-3 colorset">
+<h1 style="text-align:center;font-family:monospace;">COVID-19 GLOBAL STATISTICS</h1>
+
+<div class="container.fluid">
+    <div class="row">
+        <div class="card col m-2 color1">
+            <div class="card-body">
+                <h4 class="card-title text">New Confirmed</h4>
+                <p class="card-text number">{{globalSummary.NewConfirmed}}</p>
+            </div>
+        </div>
+        <div class="card col m-2 color2">
+            <div class="card-body">
+                <h4 class="card-title text">Total Confirmed</h4>
+                <p class="card-text number">{{globalSummary.TotalConfirmed}}</p>
+            </div>
+        </div>
+        <div class="card col m-2 color3">
+            <div class="card-body">
+                <h4 class="card-title text">New Deaths</h4>
+                <p class="card-text number">{{globalSummary.NewDeaths}}</p>
+            </div>
+        </div>
+        <div class="card col m-2 color4">
+            <div class="card-body">
+                <h4 class="card-title text">Total Deaths</h4>
+                <p class="card-text number">{{globalSummary.TotalDeaths}}</p>
+            </div>
+        </div>
+        <div class="card col m-2 color5">
+            <div class="card-body">
+                <h4 class="card-title text">New Recovered</h4>
+                <p class="card-text number">{{globalSummary.NewRecovered}}</p>
+            </div>
+        </div>
+        <div class="card col m-2 color6">
+            <div class="card-body">
+                <h4 class="card-title text">Total Recovered</h4>
+                <p class="card-text number">{{globalSummary.TotalRecovered}}</p>
+            </div>
+        </div>
+    </div><br>
+    <h4 class="alert alert-light border rounded" style="text-align:center;">Country-Wise Summary</h4>
+</div>
+<div class="design">
+    <div class="row">
+    <div class="table-responsive" style="background-color:white;color:black;">
+
+        <table class="tableDesign" id="myTable" style="background-color:#606669;color:black;">
+            <thead>
+                <tr style="color:white;">
+                    <th>S. NO</th>
+                    <th>Country</th>
+                    <th>New Confirmed</th>
+                    <th>Total Confirmed</th>
+                    <th>New Deaths</th>
+                    <th>Total Deaths</th>
+                    <th>New Recovered</th>
+                    <th>Total Recovered</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in countries %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{c.Country}}</td>
+                    <td>{{c.NewConfirmed}}</td>
+                    <td>{{c.TotalConfirmed}}</td>
+                    <td>{{c.NewDeaths}}</td>
+                    <td>{{c.TotalDeaths}}</td>
+                    <td>{{c.NewRecovered}}</td>
+                    <td>{{c.TotalRecovered}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+</div>
+
+    {% autoescape off %}
+    {{ worldmap }}
+    {% endautoescape %}
+
+<div class="row" style="padding-top:50px;">
+    <div class="col-md-12 responsive">
+        {% autoescape off %}
+        {{ piemap }}
+        {% endautoescape %}
+    </div>
+</div>
+<div class="row" style="padding-top:50px;">
+    <div class="col-md-12 responsive">
+        {% autoescape off %}
+        {{ confirmedmap }}
+        {% endautoescape %}
+    </div>
+</div>
+<div class="row" style="padding-top:50px;">
+
+
+</div>
+</body>
+<script>
+$(document).ready(function () {
+  $('#myTable').DataTable();
+  $('.dataTables_length').addClass('bs-select');
+});
+
+</script>
+</html>
+
